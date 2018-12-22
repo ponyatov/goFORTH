@@ -8,4 +8,3 @@ import (
 func main() {
 	log.Println(os.Args)
 }
-
