@@ -1,0 +1,9 @@
+{
+	"short_name": "FORTH/go",
+	"name": "FORTH/go",
+	"icons": [ { "src": "/static/lego.png", "type": "image/png" } ],	
+	"orientation": "portrait",
+	"display": "standalone",
+	"background_color": "black",
+	"theme_color": "black"
+}
