@@ -11,7 +11,8 @@ import (
 
 var samara, utc *time.Location
 
-const html = `<html><head>
+const html = `<html>
+<head>
 	<title>FORTH/go</title>
 	<link rel="stylesheet" type="text/css" href="/static/css.css">
 	<link rel="manifest" href="/static/app.manifest">
@@ -20,11 +21,9 @@ const html = `<html><head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>`
 
-const htlog = `
-</div>
-`
-
 func main() {
+
+	log.Println(os.Args)
 
 	samara, _ = time.LoadLocation("Europe/Samara")
 	utc, _ = time.LoadLocation("UTC")
@@ -33,26 +32,16 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
+
+	HTTP := fmt.Sprintf(":%s", port)
+	log.Println(HTTP)
+
 	http.HandleFunc("/", index)
 
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), nil))
-}
-
-func manifest(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, `
-{
-	"short_name": "FORTH/go",
-	"name": "FORTH/go",
-	"icons": [ { "src": "/static/lego.png", "type": "image/png" } ],	
-	"orientation": "portrait",
-	"display": "standalone",
-	"background_color": "black",
-	"theme_color": "black"
-}
-	`)
+	log.Fatal(http.ListenAndServe(HTTP, nil))
 }
 
 const pad = `
